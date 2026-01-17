@@ -1,0 +1,64 @@
+.header {
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.headerContainer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-indigo-blue);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navLink {
+    color: var(--color-charcoal-black);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.navLink:hover {
+    color: var(--color-indigo-blue);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.searchBar {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 300px;
+    font-family: inherit;
+}
+
+.searchBar:focus {
+    outline: none;
+    border-color: var(--color-indigo-blue);
+}
