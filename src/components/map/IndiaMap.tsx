@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { Tooltip } from 'react-tooltip';
-import clsx from 'clsx';
+import * as topojson from 'topojson-client';
+import { motion } from 'framer-motion';
 import styles from './IndiaMap.module.css';
 
 // URL to the TopoJSON file in public folder
@@ -17,6 +18,22 @@ interface MapProps {
 export function IndiaMap({ onStateClick }: MapProps) {
     const router = useRouter();
     const [tooltipContent, setTooltipContent] = useState("");
+    const [geoData, setGeoData] = useState<any>(null);
+
+    useEffect(() => {
+        fetch(INDIA_TOPO_JSON)
+            .then(response => response.json())
+            .then(topology => {
+                // Explicitly select the 'states' layer from the TopoJSON
+                if (topology.objects && topology.objects.states) {
+                    const statesGeo = topojson.feature(topology, topology.objects.states);
+                    setGeoData(statesGeo);
+                } else {
+                    console.error("Could not find 'states' object in TopoJSON. Available objects:", Object.keys(topology.objects));
+                }
+            })
+            .catch(err => console.error("Error loading map data:", err));
+    }, []);
 
     const handleStateClick = (geo: any) => {
         const { st_nm, st_code } = geo.properties;
@@ -32,35 +49,39 @@ export function IndiaMap({ onStateClick }: MapProps) {
         }
     };
 
+    if (!geoData) {
+        return (
+            <div className={styles.loadingContainer}>
+                <div className={styles.spinner}></div>
+                <p>Loading Interactive Map...</p>
+            </div>
+        );
+    }
+
     return (
-        <div className={styles.mapContainer}>
-            <h2 className={styles.mapTitle}>Select Your State</h2>
+        <motion.div
+            className={styles.mapContainer}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+        >
+            <div className={styles.headerSection}>
+                <h2 className={styles.mapTitle}>Select Your State</h2>
+                <p className={styles.mapSubtitle}>Explore authentic products from every corner of India</p>
+            </div>
 
             <div className={styles.mapWrapper}>
                 <ComposableMap
                     projection="geoMercator"
                     projectionConfig={{
-                        scale: 1000,
-                        center: [78.9629, 22.5937] // Center of India
+                        scale: 1100,
+                        center: [78.9629, 23.5937] // Center of India
                     }}
                     className={styles.composableMap}
                 >
-                    <Geographies geography={INDIA_TOPO_JSON}>
+                    <Geographies geography={geoData}>
                         {({ geographies }: { geographies: any[] }) =>
                             geographies.map((geo: any) => {
-                                // Use specific object key if needed, or default implies first object
-                                // The file has 'states' and 'districts'. By default react-simple-maps might pick first.
-                                // We should verify. But usually it iterates all geometries in the Topology.
-                                // If we want ONLY states, we should access that feature. 
-                                // However, for this file, usually loading the URL loads all objects. 
-                                // We'll see. Ideally we'd filter or specify "geography={...}" with object.
-
-                                // Checking if it's a state (based on properties).
-                                // We exclude districts by checking if 'district' property exists.
-                                // States usually have 'st_nm' but NOT 'district'.
-                                const isDistrict = geo.properties.district;
-                                if (isDistrict) return null;
-
                                 return (
                                     <Geography
                                         key={geo.rsmKey}
@@ -78,21 +99,23 @@ export function IndiaMap({ onStateClick }: MapProps) {
                                         data-tooltip-content={geo.properties.st_nm}
                                         style={{
                                             default: {
-                                                fill: "#D6D6DA",
+                                                fill: "#F3F4F6", // Light gray
                                                 outline: "none",
-                                                stroke: "#FFFFFF",
+                                                stroke: "#CBD5E1", // Slate-300
                                                 strokeWidth: 0.5,
-                                                transition: "all 0.3s"
+                                                transition: "all 0.3s ease"
                                             },
                                             hover: {
+                                                // Gradient or solid fallback
                                                 fill: "#FF9933", // Saffron
                                                 outline: "none",
                                                 stroke: "#FFFFFF",
-                                                strokeWidth: 0.7,
-                                                cursor: "pointer"
+                                                strokeWidth: 1.5,
+                                                filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.2))",
+                                                cursor: "pointer",
                                             },
                                             pressed: {
-                                                fill: "#E04141",
+                                                fill: "#1E3A8A", // Indigo-900
                                                 outline: "none"
                                             }
                                         }}
@@ -102,12 +125,24 @@ export function IndiaMap({ onStateClick }: MapProps) {
                         }
                     </Geographies>
                 </ComposableMap>
-                <Tooltip id="my-tooltip" />
+                <Tooltip
+                    id="my-tooltip"
+                    style={{
+                        backgroundColor: "#1E2A44",
+                        color: "#fff",
+                        padding: "8px 16px",
+                        borderRadius: "8px",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                    }}
+                />
             </div>
 
             <p className={styles.mapFooter}>
-                Click on any state to explore local Swadeshi sellers.
+                <span className={styles.footerIcon}>📍</span>
+                Click on any state to find verified Swadeshi sellers
             </p>
-        </div>
+        </motion.div>
     );
 }

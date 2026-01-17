@@ -1,55 +1,121 @@
 .mapContainer {
     width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: var(--color-warm-ivory);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    /* Glass effect base */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.05),
+        0 4px 6px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mapContainer::before {
+    /* Subtle decorative gradient blob */
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.03), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.headerSection {
+    text-align: center;
+    margin-bottom: 2rem;
+    z-index: 1;
 }
 
 .mapTitle {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--color-indigo-blue);
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-royal-blue);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--color-royal-blue) 0%, var(--color-indigo-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mapSubtitle {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
 }
 
 .mapWrapper {
     width: 100%;
+    /* Aspect ratio control or max-height */
     height: auto;
     display: flex;
     justify-content: center;
+    z-index: 1;
+    position: relative;
+    /* Ensure tooltips aren't clipped if possible, but mapContainer has overflow hidden for blobs */
 }
 
 .composableMap {
     width: 100%;
     height: auto;
-    max-height: 800px;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
 }
 
 .geography {
     outline: none;
+    cursor: pointer;
 }
 
 .mapFooter {
-    text-align: center;
-    margin-top: 1rem;
-    color: #666;
-    font-size: 0.9rem;
+    margin-top: 2rem;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 1;
 }
 
-.tooltip {
-    position: fixed;
-    background: var(--color-indigo-blue);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    pointer-events: none;
-    z-index: 100;
-    transform: translate(-50%, -100%);
-    margin-top: -10px;
-    white-space: nowrap;
+.footerIcon {
+    font-size: 1.2rem;
+}
+
+/* Loading States */
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+    color: var(--color-royal-blue);
+    font-weight: 500;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(30, 58, 138, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--color-saffron);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

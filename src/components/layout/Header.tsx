@@ -9,15 +9,15 @@ export function Header() {
             <div className={styles.headerContainer}>
                 {/* Logo */}
                 <Link href="/" className={styles.logo}>
-                    BhoovanMart
+                    <span className={styles.logoHighlight}>Bhoovan</span>Mart
                 </Link>
 
                 {/* Search */}
-                <div style={{ position: 'relative' }}>
-                    {/* Simple search placeholder */}
+                <div className={styles.searchWrapper}>
+                    <Search className={styles.searchIcon} size={18} />
                     <input
                         type="text"
-                        placeholder="Search for Swadeshi products..."
+                        placeholder="Search for authentic Swadeshi products..."
                         className={styles.searchBar}
                     />
                 </div>
@@ -31,15 +31,18 @@ export function Header() {
                         Sellers
                     </Link>
 
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className={styles.iconBtn}>
                         <User size={20} />
                     </Button>
 
-                    <Button variant="ghost" size="icon">
-                        <ShoppingCart size={20} />
-                    </Button>
+                    <div className={styles.cartWrapper}>
+                        <Button variant="ghost" size="icon" className={styles.iconBtn}>
+                            <ShoppingCart size={20} />
+                        </Button>
+                        <span className={styles.cartBadge}>2</span>
+                    </div>
 
-                    <Button variant="primary" size="sm">
+                    <Button variant="primary" size="sm" className={styles.loginBtn}>
                         Login
                     </Button>
                 </nav>
