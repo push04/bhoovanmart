@@ -1,0 +1,62 @@
+.mapContainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--color-warm-ivory);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.mapTitle {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-indigo-blue);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Overriding react-svg-map generic styles */
+.svgMap {
+    stroke: white;
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    width: 100%;
+    height: auto;
+}
+
+.svgMap path {
+    fill: #d1d5db;
+    /* Default Gray */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.svgMap path:hover {
+    fill: var(--color-saffron-copper);
+    transform: translateY(-2px);
+    /* Subtle lift effect */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    z-index: 10;
+    /* Bring to front */
+}
+
+.svgMap path:focus {
+    fill: var(--color-indigo-blue);
+}
+
+.tooltip {
+    position: fixed;
+    background: var(--color-indigo-blue);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    pointer-events: none;
+    z-index: 100;
+    transform: translate(-50%, -100%);
+    margin-top: -10px;
+    white-space: nowrap;
+}
