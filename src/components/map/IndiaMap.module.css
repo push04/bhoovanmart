@@ -1,73 +1,33 @@
-.mapContainer {
+/* Main 2-Column Layout */
+.mapLayout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    /* Map takes more space, Info panel takes remaining */
+    gap: 3rem;
     width: 100%;
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.85);
-    /* Glass effect base */
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.05),
-        0 4px 6px rgba(0, 0, 0, 0.02);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* Map Column */
+.mapColumn {
     position: relative;
-    overflow: hidden;
-}
-
-.mapContainer::before {
-    /* Subtle decorative gradient blob */
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.03), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.headerSection {
-    text-align: center;
-    margin-bottom: 2rem;
-    z-index: 1;
-}
-
-.mapTitle {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--color-royal-blue);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--color-royal-blue) 0%, var(--color-indigo-blue) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.mapSubtitle {
-    color: var(--color-text-secondary);
-    font-size: 1.1rem;
+    z-index: 10;
 }
 
 .mapWrapper {
     width: 100%;
-    /* Aspect ratio control or max-height */
     height: auto;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-    position: relative;
-    /* Ensure tooltips aren't clipped if possible, but mapContainer has overflow hidden for blobs */
+    /* Remove center constraints to let it fill column */
+    display: block;
 }
 
 .composableMap {
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+    /* Deep robust shadow */
 }
 
 .geography {
@@ -75,25 +35,180 @@
     cursor: pointer;
 }
 
-.mapFooter {
-    margin-top: 2rem;
+/* Info Column */
+.infoColumn {
+    position: sticky;
+    top: 100px;
+    /* Stick to top while scrolling */
+}
+
+.infoCard {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-glass);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.infoTitle {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-royal-blue);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.infoSubtitle {
     color: var(--color-text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Manual Selection */
+.selectWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.selectLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.selectContainer {
+    position: relative;
+}
+
+.selectContainer::after {
+    content: '▼';
+    font-size: 0.8rem;
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-text-secondary);
+}
+
+.stateSelect {
+    width: 100%;
+    appearance: none;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background-color: white;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.stateSelect:focus {
+    outline: none;
+    border-color: var(--color-indigo-blue);
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+/* Dynamic Info Box */
+.dynamicInfoBox {
+    min-height: 200px;
+}
+
+.stateNameLarge {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-indigo-blue);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-saffron);
+    display: inline-block;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.statItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1.25rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+    transition: transform 0.2s;
+}
+
+.statItem:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-saffron-light);
+}
+
+.statIcon {
+    color: var(--color-saffron);
+    padding: 10px;
+    background: var(--color-saffron-light);
+    border-radius: 12px;
+    box-sizing: content-box;
+}
+
+.statValue {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+.statLabel {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.actionHint {
     font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-indigo-blue);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    z-index: 1;
+    animation: bounceRight 2s infinite;
 }
 
-.footerIcon {
-    font-size: 1.2rem;
+@keyframes bounceRight {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
 }
 
-/* Loading States */
+/* Loading */
 .loadingContainer {
     display: flex;
     flex-direction: column;
@@ -117,5 +232,27 @@
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .mapLayout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .infoColumn {
+        position: static;
+        order: -1;
+        /* Move info to top on mobile */
+    }
+
+    .infoTitle {
+        font-size: 2rem;
+    }
+
+    .stateNameLarge {
+        font-size: 1.8rem;
     }
 }
