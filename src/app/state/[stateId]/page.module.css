@@ -1,0 +1,279 @@
+.main {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    padding-bottom: 4rem;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 6rem 0 4rem;
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.heroBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: radial-gradient(var(--color-saffron) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.stateTitle {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stateDescription {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2.5rem;
+}
+
+.heroStats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-saffron);
+}
+
+.statLabel {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Breadcrumb / Back Link */
+.backLink {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.backLink:hover {
+    color: white;
+}
+
+/* Content Section */
+.contentSection {
+    margin-top: -3rem;
+    /* Overlap hero */
+    position: relative;
+    z-index: 2;
+}
+
+.glassContainer {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    padding: 3rem;
+    min-height: 600px;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-royal-blue);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.filterTabs {
+    display: flex;
+    gap: 1rem;
+}
+
+.filterBtn {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filterBtn.active {
+    background: var(--color-indigo-blue);
+    color: white;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+/* Seller Card */
+.card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-saffron-light);
+}
+
+.cardHeader {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.badges {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.verifiedBadge {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.cardBody {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sellerName {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-royal-blue);
+    margin-bottom: 0.25rem;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.cardFooter {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: var(--color-royal-blue);
+}
+
+.emptyState {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem;
+    color: var(--color-text-secondary);
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px dashed var(--color-border);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero {
+        padding: 6rem 1rem 3rem;
+    }
+
+    .stateTitle {
+        font-size: 2.5rem;
+    }
+
+    .glassContainer {
+        padding: 1.5rem;
+    }
+
+    .heroStats {
+        gap: 1.5rem;
+    }
+
+    .sectionHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
