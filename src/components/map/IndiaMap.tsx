@@ -86,12 +86,13 @@ export function IndiaMap({ onStateClick }: MapProps) {
                     <ComposableMap
                         projection="geoMercator"
                         projectionConfig={{
-                            scale: 1300,
-                            center: [78.9629, 23.5937]
+                            scale: 1100,
+                            center: [78.9, 22.5]
                         }}
                         className={styles.composableMap}
-                        height={650}
-                        width={600}
+                        viewBox="0 0 800 700"
+                        height={700}
+                        width={800}
                     >
                         <Geographies geography={geoData}>
                             {({ geographies }: { geographies: any[] }) =>
@@ -226,6 +227,6 @@ export function IndiaMap({ onStateClick }: MapProps) {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </motion.div >
     );
 }

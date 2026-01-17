@@ -1,26 +1,31 @@
 /* Main 2-Column Layout */
 .mapLayout {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    /* Map takes more space, Info panel takes remaining */
-    gap: 3rem;
-    width: 100%;
-    max-width: 1200px;
+    grid-template-columns: 1.5fr 1fr;
+    /* More space for map */
+    gap: 1rem;
+    width: 95%;
+    max-width: 1600px;
+    /* Much wider container */
     margin: 0 auto;
-    align-items: start;
+    align-items: center;
+    /* Center vertically */
 }
 
 /* Map Column */
 .mapColumn {
     position: relative;
     z-index: 10;
+    /* Pull map to the left to utilize blank space */
+    margin-left: -5%;
 }
 
 .mapWrapper {
-    width: 100%;
+    width: 110%;
+    /* Overflow slightly to fill space */
     height: auto;
-    /* Remove center constraints to let it fill column */
-    display: block;
+    display: flex;
+    justify-content: center;
 }
 
 .composableMap {
