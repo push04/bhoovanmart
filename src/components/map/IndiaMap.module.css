@@ -16,35 +16,28 @@
     font-weight: 700;
 }
 
-/* Overriding react-svg-map generic styles */
-.svgMap {
-    stroke: white;
-    stroke-width: 1px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+.mapWrapper {
     width: 100%;
     height: auto;
+    display: flex;
+    justify-content: center;
 }
 
-.svgMap path {
-    fill: #d1d5db;
-    /* Default Gray */
-    transition: all 0.3s ease;
-    cursor: pointer;
+.composableMap {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+}
+
+.geography {
     outline: none;
 }
 
-.svgMap path:hover {
-    fill: var(--color-saffron-copper);
-    transform: translateY(-2px);
-    /* Subtle lift effect */
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
-    z-index: 10;
-    /* Bring to front */
-}
-
-.svgMap path:focus {
-    fill: var(--color-indigo-blue);
+.mapFooter {
+    text-align: center;
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.9rem;
 }
 
 .tooltip {
